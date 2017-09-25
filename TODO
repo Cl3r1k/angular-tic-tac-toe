@@ -1,0 +1,30 @@
+// C:\Windows\System32\cmd.exe /k "C:\Program Files\nodejs\nodevars.bat" // To start from VSC terminal node env
+
+// To push changes on githubpages
+// ng build --prod --base-href "https://Cl3r1k.github.io/angular-pomodoro-clock/"
+// angular-cli-ghpages --repo=https://github.com/Cl3r1k/angular-pomodoro-clock.git --name=Cl3r1k --email=cl3r1k2@gmail.com --no-silent
+
+Todos:
+    New:
+        
+    Done:
+        ✔ Write business logic
+            ✔ I can start a 25 minute pomodoro, and the timer will go off once 25 minutes has elapsed.
+            ✔ I can reset the clock for my next pomodoro.
+            ✔ I can customize the length of each pomodoro.
+            ✔ When the session is finished start automatically break (color Header title and action text should be changed)
+            ✔ When the break is finished start automatically session (color Header title and action text should be changed)
+            ✔ Add additional action text under current state field (while session - focus on work, while break - relax or something like this)
+            ✔ While session is started and paused and session time changed timer should be updated (only session time could be changed)
+            ✔ While break is started and paused and break time changed timer should be updated (only break time could be changed)
+        ✔ While session or break is running the time frames could not be changed
+        ✔ Build UI
+        ✔ Correct e2e test
+        ✔ Write Unit tests
+        ✔ Deploy on gh-pages
+        ✔ Deploy on codepen
+        
+    Canceled:
+        ✘ Add additional button for timer reset -> Not necessarily anymore
+        ✘ While session or break is if reset button pressed show dialog window with request to interrupt pomodoro -> Not necessarily anymore
+        ✘ And if it possible by time - add spinner when Angular component loading -> Will be in next task
