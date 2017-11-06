@@ -1,0 +1,51 @@
+button:focus {
+    outline: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.wrapper {
+    padding-top: 100px;
+    text-align: center;
+    color: white;
+}
+
+.main-Container {
+    /* background: #E8E9EB; */
+    /* border: 2px solid #908b85; */
+    background-color: rgba(34, 33, 32, 0.8);
+    box-shadow: 0 16px 28px 0 rgba(0, 0, 0, .8), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+    font-family: 'Lato', Tahoma, Geneva, sans-serif;
+    border-radius: 4px;
+    margin: 20px auto;
+    width: 300px;
+    height: 350px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 40px;
+}
+
+.game-Container li {
+    height: 90px;
+    width: 90px;
+    border: 1px solid red;
+    list-style: none;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: 1px solid red;
+    -webkit-padding-start: 0px;
+}
+
+li {
+    font-size: 74px;
+}
+
+li:hover {
+    cursor: pointer;
+}

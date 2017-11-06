@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+a,
+a:focus,
+a:hover {
+    color: #2ecc71;
+    text-decoration: none;
+    font-weight: 600;
+}
