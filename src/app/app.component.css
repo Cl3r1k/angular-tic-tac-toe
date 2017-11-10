@@ -49,3 +49,11 @@ li {
 li:hover {
     cursor: pointer;
 }
+
+.messages-Container {
+    color: blue;
+}
+
+.hidden {
+    display: none;
+}

@@ -6,18 +6,19 @@
 
 Todos:
     New:
-        ☐ Write business logic
-            ☐ I can play a game of Tic Tac Toe with the computer.
-            ☐ My game will reset as soon as it's over so I can play again.
-            ☐ I can choose whether I want to play as X or O.
-        ☐ Build UI
+            ☐ Build UI
+        
         ☐ Correct e2e test
         ☐ Write Unit tests
+        ☐ Change direction, if was draw
         ☐ Deploy on gh-pages
         ☐ Deploy on codepen
 
         ☐ And if it possible by time - add spinner when Angular component loading
 
     Done:
-        
+        ✔ Write business logic (look here https://codepen.io/freeCodeCamp/full/KzXQgy) @done(17-11-10 18:20)
+            ✔ I can play a game of Tic Tac Toe with the computer. @done(17-11-10 18:20)
+            ✔ My game will reset as soon as it's over so I can play again. @done(17-11-10 18:20)
+            ✔ I can choose whether I want to play as X or O. @done(17-11-10 18:20)
     Canceled:

@@ -1,4 +1,8 @@
 <div class='wrapper'>
+    <div class='messages-Container'>
+        <span [class.hidden]='secondPlayerTurn || start'>{{msg1}}</span>
+        <span [class.hidden]='!secondPlayerTurn || start'>{{msg2}}</span>
+    </div>
     <div class='main-Container'>
         <div class='initial-Container' *ngIf="state === 0">
             <h4>How do you want to play?</h4>
@@ -7,22 +11,22 @@
         </div>
         <div class='choise-Container' *ngIf="state === 1">
             <h4>Would you like to be X or O?</h4>
-            <button (click)='chooseXorO(1)'>X</button>
-            <button (click)='chooseXorO(2)'>O</button>
+            <button (click)='chooseXorO("X")'>X</button>
+            <button (click)='chooseXorO("O")'>O</button>
             <button class='back' (click)='back()'>Back</button>
         </div>
         <div class='game-Container' *ngIf="state === 2">
             <div class='player1-block'>
-                <span>player1 info</span>
+                <span>player1 score: {{player1Wins}}</span>
             </div>
             <div class='player2-block'>
-                <span>player2 info</span>
+                <span>player2 score: {{player2Wins}}</span>
             </div>
             <button class='reset' (click)='reset()'>Reset all</button>
-            <div class='grid-Container'>
+            <div class='board-Container'>
                 <ul>
-                    <li *ngFor='let num of grid; let i = index' (click)='updateGrid(i)'>
-                        <span>{{num}}</span>
+                    <li *ngFor='let num of board; let i = index' (click)='playerTurn(i)'>
+                        <span *ngIf='num === "X" || num === "O"'>{{num}}</span>
                     </li>
                 </ul>
             </div>

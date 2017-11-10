@@ -8,20 +8,35 @@ import { Component } from '@angular/core';
 export class AppComponent {
     state: number;
     numPlayers: number;
-    playerXorO: number;
-    grid: number[] = [];
+    playerChoiseXorO: string;
+    board: string[] = [];
     secondPlayerTurn: boolean;
+    aiPlayer: string;
+    huPlayer: string;
+    start = true;
+    finishedGame = false;
+    player1Wins: number;
+    player2Wins: number;
+    restartPerformed: boolean;
+    msg1: string;
+    msg2: string;
 
     constructor() {
         this.initGame();
     }
 
     initGame() {
-        this.state = 2;
+        this.state = 0;
         this.numPlayers = 0;
-        this.playerXorO = 0;
-        this.grid = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.secondPlayerTurn = false;
+        this.playerChoiseXorO = '';
+        this.aiPlayer = 'X';
+        this.huPlayer = 'O';
+        this.player1Wins = 0;
+        this.player2Wins = 0;
+
+        this.restartGame();
+
+        this.restartPerformed = false;
     }
 
     choosePlayer(num: number) {
@@ -29,9 +44,13 @@ export class AppComponent {
         this.state = 1;
     }
 
-    chooseXorO(num: number) {
-        this.playerXorO = num;
+    chooseXorO(letter: string) {
+        this.playerChoiseXorO = letter;
         this.state = 2;
+
+        if (this.numPlayers === 1 && this.playerChoiseXorO === 'O') {
+            setTimeout(() => { this.aiTurn(); }, 1000);
+        }
     }
 
     back() {
@@ -41,19 +60,267 @@ export class AppComponent {
 
     reset() {
         this.initGame();
+        this.restartPerformed = true;
     }
 
-    updateGrid(num: number) {
+    restartGame() {
+        this.start = true;
+        this.secondPlayerTurn = false;
+        this.finishedGame = false;
 
-        if (this.grid[num] === 0) {
-            if (!this.secondPlayerTurn) {
-                this.grid[num] = 1;
-            } else {
-                this.grid[num] = 2;
-            }
+        this.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
 
-            this.secondPlayerTurn = !this.secondPlayerTurn;
+        if (this.numPlayers === 1 && this.playerChoiseXorO === 'O') {
+            setTimeout(() => { this.aiTurn(); }, 1000);
         }
 
+        this.msg1 = 'left msg';
+        this.msg2 = 'right msg';
+
+        this.restartPerformed = true;
+
+        /* Initial state of the board
+          O |   | X
+          ---------
+          X |   | X
+          ---------
+            | O | O
+        */
+        // this.board = ['O', '1', 'X', 'X', '4', 'X', '6', 'O', 'O'];
+
+        /* Initial state of the board
+          0 |   | X
+          ---------
+          X |   |
+          ---------
+            | O |
+        */
+        // this.board = ['O', '1', 'X', 'X', '4', '5', '6', 'O', '8'];    // This one is strange, -> nore, AI just giving up
+
+        /* Initial state of the board
+          X | X | O
+          ---------
+            | O |
+          ---------
+            | O | X
+        */
+        // this.board = ['X', 'X', 'O', '3', 'O', '5', '6', 'O', 'X'];
+        // this.board = ['X', 'O', '2', '3', 'O', '5', '6', '7', 'X'];
+    }
+
+    aiTurn() {
+        let result = Object();
+
+        if (this.start) {
+            // random pass
+            result.index = 5; // TODO: Randomize the value
+        } else {
+            if (this.playerChoiseXorO === 'X') {
+                result = this.minimax(this.board, this.huPlayer);
+            } else {
+                result = this.minimax(this.board, this.aiPlayer);
+            }
+        }
+
+        this.updateBoard(result.index);
+    }
+
+    playerTurn(num: number) {
+        if (this.numPlayers === 1) {
+            if (this.playerChoiseXorO === 'X' && this.secondPlayerTurn) {
+                return;
+            }
+
+            if (this.playerChoiseXorO === 'O' && !this.secondPlayerTurn) {
+                return;
+            }
+        }
+
+        if (this.restartPerformed) {
+            this.restartPerformed = false;
+        }
+
+        this.updateBoard(num);
+    }
+
+    updateBoard(num: number) {
+
+        if (!this.finishedGame) {
+            if (this.board[num] !== this.aiPlayer || this.board[num] !== this.huPlayer) {
+                if (!this.secondPlayerTurn) {
+                    if (this.numPlayers === 2) {
+                        let tmpChoise: string;
+                        if (this.playerChoiseXorO === 'X') {
+                            tmpChoise = this.aiPlayer;
+                        } else {
+                            tmpChoise = this.huPlayer;
+                        }
+
+                        this.board[num] = tmpChoise;
+                        if (this.winning(this.board, tmpChoise)) {
+                            this.finishedGame = true;
+                            this.player1Wins++;
+                            alert('First player won!!!');
+                            setTimeout(() => { this.restartGame(); }, 3000);
+                            return;
+                        }
+                        this.msg2 = 'Second player turn';
+                    } else {
+                        this.board[num] = this.aiPlayer;
+                        if (this.winning(this.board, this.aiPlayer)) {
+                            this.finishedGame = true;
+                            this.player1Wins++;
+
+                            if (this.playerChoiseXorO !== this.aiPlayer) {
+                                alert('AI won!');
+                            } else {
+                                alert('You won the AI!!!');
+                            }
+
+                            setTimeout(() => { this.restartGame(); }, 3000);
+                            return;
+                        }
+                        this.msg2 = 'Computer\'s turn';
+                    }
+                } else {
+                    if (this.numPlayers === 2) {
+                        let tmpChoise: string;
+                        if (this.playerChoiseXorO === 'X') {
+                            tmpChoise = this.huPlayer;
+                        } else {
+                            tmpChoise = this.aiPlayer;
+                        }
+
+                        this.board[num] = tmpChoise;
+                        if (this.winning(this.board, tmpChoise)) {
+                            this.finishedGame = true;
+                            this.player2Wins++;
+                            alert('Second player won!!!');
+                            setTimeout(() => { this.restartGame(); }, 3000);
+                            return;
+                        }
+                        this.msg1 = 'First player turn';
+                    } else {
+                        this.board[num] = this.huPlayer;
+                        if (this.winning(this.board, this.huPlayer)) {
+                            this.finishedGame = true;
+                            this.player2Wins++;
+
+                            if (this.playerChoiseXorO !== this.huPlayer) {
+                                alert('AI won!');
+                            } else {
+                                alert('You won the AI!!!');
+                            }
+
+                            setTimeout(() => { this.restartGame(); }, 3000);
+                            return;
+                        }
+                        this.msg1 = 'Your turn';
+                    }
+                }
+
+                const tmpBoard = this.emptyIndices(this.board);
+                if (tmpBoard.length === 0) {
+                    this.finishedGame = true;
+                    alert('it was a draw...');
+                    setTimeout(() => { this.restartGame(); }, 3000);
+                    return;
+                }
+
+                this.secondPlayerTurn = !this.secondPlayerTurn;
+                this.start = false;
+
+                if (this.numPlayers === 1) {
+                    if (this.secondPlayerTurn && this.playerChoiseXorO === 'X' || !this.secondPlayerTurn && this.playerChoiseXorO === 'O') {
+                        setTimeout(() => {
+                            if (this.restartPerformed) {
+                                this.restartPerformed = false;
+                            } else {
+                                this.aiTurn();
+                            }
+                        }, 1000);
+                    }
+                }
+            }
+        }
+
+    }
+
+    emptyIndices(board) {
+        return board.filter(item => item !== 'O' && item !== 'X');
+    }
+
+    winning(board: string[], playerID: string): boolean {
+        if (board[0] === playerID && board[1] === playerID && board[2] === playerID ||
+            board[3] === playerID && board[4] === playerID && board[5] === playerID ||
+            board[6] === playerID && board[7] === playerID && board[8] === playerID ||
+            board[0] === playerID && board[3] === playerID && board[6] === playerID ||
+            board[1] === playerID && board[4] === playerID && board[7] === playerID ||
+            board[2] === playerID && board[5] === playerID && board[8] === playerID ||
+            board[0] === playerID && board[4] === playerID && board[8] === playerID ||
+            board[2] === playerID && board[4] === playerID && board[6] === playerID) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    minimax(newBoard: string[], player: string) {
+
+        const availSpots: number[] = this.emptyIndices(newBoard);
+
+        if (this.winning(newBoard, this.huPlayer)) {
+            return { score: -10 };
+        } else if (this.winning(newBoard, this.aiPlayer)) {
+            return { score: 10 };
+        } else if (availSpots.length === 0) {
+            return { score: 0 };
+        }
+
+        const moves = [];
+
+        for (let i = 0; i < availSpots.length; i++) {
+
+            const move = Object();
+            move.index = newBoard[availSpots[i]];
+
+            // Perform turn for the current player
+            newBoard[availSpots[i]] = player;
+
+            if (player === this.aiPlayer) {
+                const result = this.minimax(newBoard, this.huPlayer);
+                move.score = result.score;
+            } else {
+                const result = this.minimax(newBoard, this.aiPlayer);
+                move.score = result.score;
+            }
+
+            // Restore the cell
+            newBoard[availSpots[i]] = move.index;
+
+            moves.push(move);
+        }
+
+        let bestMove: number;
+
+        if (player === this.aiPlayer) {
+            let bestScore = -10000;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score > bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        } else {
+            let bestScore = 10000;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score < bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+
+        return moves[bestMove];
     }
 }
