@@ -20,6 +20,8 @@ export class AppComponent {
     restartPerformed: boolean;
     msg1: string;
     msg2: string;
+    activeLeft: boolean;
+    activeRight: boolean;
 
     constructor() {
         this.initGame();
@@ -40,6 +42,8 @@ export class AppComponent {
     }
 
     choosePlayer(num: number) {
+        // this.secondPlayerTurn = !this.secondPlayerTurn;
+        // this.start = false;    // TODO: Delete after test
         this.numPlayers = num;
         this.state = 1;
     }
@@ -48,7 +52,16 @@ export class AppComponent {
         this.playerChoiseXorO = letter;
         this.state = 2;
 
+        if (this.numPlayers === 1 && this.playerChoiseXorO === 'X') {
+            this.msg1 = 'Your turn';
+        } else {
+            this.msg1 = 'First player turn';
+        }
+
+        this.updateMessageBox();
+
         if (this.numPlayers === 1 && this.playerChoiseXorO === 'O') {
+            this.msg2 = 'Computer\'s turn';
             setTimeout(() => { this.aiTurn(); }, 1000);
         }
     }
@@ -70,12 +83,23 @@ export class AppComponent {
 
         this.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
 
+        this.activeLeft = false;
+        this.activeRight = false;
+
+        if (this.numPlayers === 1 && this.playerChoiseXorO === 'X') {
+            this.msg1 = 'Your turn';
+        } else {
+            this.msg1 = 'First player turn';
+        }
+        this.msg2 = 'Second player turn';
+
+        this.updateMessageBox();
+
         if (this.numPlayers === 1 && this.playerChoiseXorO === 'O') {
+            this.msg1 = 'Your turn';
+            this.msg2 = 'Computer\'s turn';
             setTimeout(() => { this.aiTurn(); }, 1000);
         }
-
-        this.msg1 = 'left msg';
-        this.msg2 = 'right msg';
 
         this.restartPerformed = true;
 
@@ -87,6 +111,7 @@ export class AppComponent {
             | O | O
         */
         // this.board = ['O', '1', 'X', 'X', '4', 'X', '6', 'O', 'O'];
+        // this.start = false;
 
         /* Initial state of the board
           0 |   | X
@@ -116,9 +141,9 @@ export class AppComponent {
             result.index = 5; // TODO: Randomize the value
         } else {
             if (this.playerChoiseXorO === 'X') {
-                result = this.minimax(this.board, this.huPlayer);
+                result = this.minimax(this.board, this.huPlayer, 0);
             } else {
-                result = this.minimax(this.board, this.aiPlayer);
+                result = this.minimax(this.board, this.aiPlayer, 0);
             }
         }
 
@@ -146,7 +171,7 @@ export class AppComponent {
     updateBoard(num: number) {
 
         if (!this.finishedGame) {
-            if (this.board[num] !== this.aiPlayer || this.board[num] !== this.huPlayer) {
+            if (this.board[num] !== this.aiPlayer && this.board[num] !== this.huPlayer) {
                 if (!this.secondPlayerTurn) {
                     if (this.numPlayers === 2) {
                         let tmpChoise: string;
@@ -229,6 +254,7 @@ export class AppComponent {
 
                 this.secondPlayerTurn = !this.secondPlayerTurn;
                 this.start = false;
+                this.updateMessageBox();
 
                 if (this.numPlayers === 1) {
                     if (this.secondPlayerTurn && this.playerChoiseXorO === 'X' || !this.secondPlayerTurn && this.playerChoiseXorO === 'O') {
@@ -244,6 +270,16 @@ export class AppComponent {
             }
         }
 
+    }
+
+    updateMessageBox() {
+        if ( (this.numPlayers === 1 && this.playerChoiseXorO === 'X') || this.numPlayers === 2) {
+            this.activeLeft = !this.secondPlayerTurn;
+            this.activeRight = this.secondPlayerTurn;
+        } else {
+            this.activeLeft = this.secondPlayerTurn;
+            this.activeRight = !this.secondPlayerTurn;
+        }
     }
 
     emptyIndices(board) {
@@ -265,16 +301,16 @@ export class AppComponent {
         }
     }
 
-    minimax(newBoard: string[], player: string) {
+    minimax(newBoard: string[], player: string, steps: number) {
 
         const availSpots: number[] = this.emptyIndices(newBoard);
 
         if (this.winning(newBoard, this.huPlayer)) {
-            return { score: -10 };
+            return { score: -10, steps: steps };
         } else if (this.winning(newBoard, this.aiPlayer)) {
-            return { score: 10 };
+            return { score: 10, steps: steps };
         } else if (availSpots.length === 0) {
-            return { score: 0 };
+            return { score: 0, steps: steps };
         }
 
         const moves = [];
@@ -283,16 +319,21 @@ export class AppComponent {
 
             const move = Object();
             move.index = newBoard[availSpots[i]];
+            move.steps = steps;
 
             // Perform turn for the current player
             newBoard[availSpots[i]] = player;
 
+            move.steps++;
+
             if (player === this.aiPlayer) {
-                const result = this.minimax(newBoard, this.huPlayer);
+                const result = this.minimax(newBoard, this.huPlayer, move.steps);
                 move.score = result.score;
+                move.steps = result.steps;
             } else {
-                const result = this.minimax(newBoard, this.aiPlayer);
+                const result = this.minimax(newBoard, this.aiPlayer, move.steps);
                 move.score = result.score;
+                move.steps = result.steps;
             }
 
             // Restore the cell
@@ -301,22 +342,29 @@ export class AppComponent {
             moves.push(move);
         }
 
-        let bestMove: number;
+        let bestMove: number;    // Здесь добавить еще одну переменную bestSteps и в цикле тоже ее проверять. (<= и >=)
+        let bestSteps = 10000;
 
         if (player === this.aiPlayer) {
             let bestScore = -10000;
             for (let i = 0; i < moves.length; i++) {
-                if (moves[i].score > bestScore) {
-                    bestScore = moves[i].score;
-                    bestMove = i;
+                if (moves[i].score >= bestScore) {
+                    if (moves[i].steps < bestSteps) {
+                        bestSteps = moves[i].steps;
+                        bestScore = moves[i].score;
+                        bestMove = i;
+                    }
                 }
             }
         } else {
             let bestScore = 10000;
             for (let i = 0; i < moves.length; i++) {
-                if (moves[i].score < bestScore) {
-                    bestScore = moves[i].score;
-                    bestMove = i;
+                if (moves[i].score <= bestScore) {
+                    if (moves[i].steps < bestSteps) {
+                        bestSteps = moves[i].steps;
+                        bestScore = moves[i].score;
+                        bestMove = i;
+                    }
                 }
             }
         }

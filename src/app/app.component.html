@@ -1,7 +1,9 @@
 <div class='wrapper'>
     <div class='messages-Container'>
-        <span [class.hidden]='secondPlayerTurn || start'>{{msg1}}</span>
-        <span [class.hidden]='!secondPlayerTurn || start'>{{msg2}}</span>
+        <span class="message-Box" [class.active-left]='activeLeft && state === 2'>{{msg1}}</span>
+        <span class="message-Box" [class.active-right]='activeRight && state === 2'>{{msg2}}</span>
+        <!-- <span class="message-Box left" [class.active]='secondPlayerTurn || start'>{{msg1}}</span>
+        <span class="message-Box right" [class.active]='!secondPlayerTurn || start'>{{msg2}}</span> -->
     </div>
     <div class='main-Container'>
         <div class='initial-Container' *ngIf="state === 0">

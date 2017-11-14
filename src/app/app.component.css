@@ -10,6 +10,8 @@ button:hover {
     padding-top: 100px;
     text-align: center;
     color: white;
+    display: flex;
+    justify-content: center;
 }
 
 .main-Container {
@@ -51,9 +53,38 @@ li:hover {
 }
 
 .messages-Container {
-    color: blue;
+    color: white;
+    font-size: 16px;
+    font-weight: bolder;
+    align-self: flex-end;
+    position: absolute;
+    width: 350px;
+    height: 50px;
+    top: 71px;
+    display: flex;
+    justify-content: space-between;
+    z-index: -1;
+    /* -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out; */
 }
 
-.hidden {
-    display: none;
+.message-Box {
+    width: 150px;
+    height: 34px;
+    padding-top: 15px;
+    position: relative;
+    background-color: white;
+    border-radius: 2px 2px 0px 0px;
+    -webkit-transition: background-color 0.3s linear;
+    transition: background-color 0.3s linear;
+}
+
+.active-left {
+    background-color: rgb(65, 180, 180);
+}
+
+.active-right {
+    background-color: rgb(233, 127, 95);
 }
