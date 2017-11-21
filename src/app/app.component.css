@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Orbitron:400');
 button:focus {
     outline: none;
 }
@@ -12,6 +15,7 @@ button:hover {
     color: white;
     display: flex;
     justify-content: center;
+    font-family: 'Indie Flower', cursive;
 }
 
 .main-Container {
@@ -19,7 +23,6 @@ button:hover {
     /* border: 2px solid #908b85; */
     background-color: rgba(34, 33, 32, 0.8);
     box-shadow: 0 16px 28px 0 rgba(0, 0, 0, .8), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
-    font-family: 'Lato', Tahoma, Geneva, sans-serif;
     border-radius: 4px;
     margin: 20px auto;
     width: 300px;
@@ -32,15 +35,15 @@ button:hover {
 .game-Container li {
     height: 90px;
     width: 90px;
-    border: 1px solid red;
+    border: 1px solid #afd9c8;
     list-style: none;
 }
 
 ul {
+    margin: 0;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    border: 1px solid red;
     -webkit-padding-start: 0px;
 }
 
@@ -54,7 +57,7 @@ li:hover {
 
 .messages-Container {
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bolder;
     align-self: flex-end;
     position: absolute;
@@ -87,4 +90,197 @@ li:hover {
 
 .active-right {
     background-color: rgb(233, 127, 95);
+}
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+}
+
+.icon-user,
+.icon-display {
+    color: #4074a7;
+    font-size: 54px;
+    margin-bottom: -10px;
+}
+
+.choise-player-container,
+.choise-letter-container {
+    height: 250px;
+    margin-top: 20px;
+    padding-top: 10px;
+    /* border: 1px solid red; */
+}
+
+.vs-container {
+    background-color: #53adc2;
+    width: 238px;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 11px 10px 15px 10px;
+    -webkit-transition: .5s linear;
+    -moz-transition: .5s linear;
+    -o-transition: .5s linear;
+    transition: .5s linear;
+}
+
+.vs-container:hover {
+    width: 248px;
+    margin-left: 15px;
+    background-color: #80add8;
+    cursor: pointer;
+}
+
+.vs-container span {
+    color: silver;
+    font-size: 42px;
+    margin-left: 10px;
+    margin-right: 15px;
+    margin-top: -13px;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.choise-Container {
+    position: relative;
+}
+
+.X-container,
+.O-container {
+    display: inline-block;
+    /* border: 1px solid green; */
+    padding: 21px 35px 25px 35px;
+    margin: 20px;
+    background-color: aqua;
+    -webkit-transition: .5s linear;
+    -moz-transition: .5s linear;
+    -o-transition: .5s linear;
+    transition: .5s linear;
+}
+
+.X-container {
+    margin-right: -3px;
+    border-radius: 5px 0px 0px 5px;
+    background-color: #52cfa8;
+}
+
+.O-container {
+    margin-left: -3px;
+    border-radius: 0px 5px 5px 0px;
+    background-color: #769bbd;
+}
+
+.X-container:hover {
+    cursor: pointer;
+    background-color: #31ad86;
+}
+
+.O-container:hover {
+    cursor: pointer;
+    background-color: #4793ca;
+}
+
+h4 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.icon-cross,
+.icon-radio-unchecked {
+    color: #4074a7;
+    font-size: 54px;
+    margin-bottom: -10px;
+}
+
+.icon-circle-left {
+    font-size: 34px;
+    position: absolute;
+    top: 2px;
+    right: 0;
+    bottom: 0;
+    left: 10px;
+    color: rgb(180, 180, 180);
+}
+
+.icon-circle-left:hover {
+    cursor: pointer;
+}
+
+.panel-container {
+    /* border: 1px solid red; */
+    padding: 10px 5px 10px 10px;
+    text-align: left;
+    border-radius: 3px;
+}
+
+.panel-container {
+    color: #bbdefb;
+    background-color: #6795C2;
+    font-size: 18px;
+    position: relative;
+}
+
+.panel-container .icon-user,
+.panel-container .icon-display,
+.panel-container .icon-balance-scale,
+.panel-container .icon-spinner11 {
+    font-size: 32px;
+    color: #4074a7;
+    margin-bottom: -10px;
+}
+
+.panel-container span {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.icon-spinner11 {
+    position: absolute;
+    top: 9px;
+    right: 20px;
+    color: #d8eb86 !important;
+}
+
+.icon-spinner11:hover {
+    cursor: pointer;
+}
+
+.border-container {
+    border: 15px solid #9acac6;
+    margin-top: 15px;
+    border-radius: 3px;
+    overflow: hidden;
+    height: 274px;
+    position: relative;
+}
+
+.board-Container {
+    width: 276px;
+    margin-left: -3px;
+    margin-top: -1px;
+}
+
+.cell {
+    background-color: #a5a5a5;
+}
+
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    /* semi-transparent black  */
+    background-color: #000;
+    opacity: 0.6;
+    /* z-index must be below .modal and above everything else  */
+    z-index: 900;
+    transition: background-color 200ms;
+}
+
+.message-game {
+    font-size: 44px;
+    color: white;
 }

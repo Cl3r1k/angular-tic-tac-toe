@@ -8,29 +8,77 @@
     <div class='main-Container'>
         <div class='initial-Container' *ngIf="state === 0">
             <h4>How do you want to play?</h4>
-            <button (click)='choosePlayer(1)'>One Player</button>
-            <button (click)='choosePlayer(2)'>Two Players</button>
+            <div class='choise-player-container'>
+                <div class='vs-container' (click)='choosePlayer(1)'>
+                    <svg class="icon icon-user">
+                        <use xlink:href="#icon-user"></use>
+                    </svg>
+                    <span>VS</span>
+                    <svg class="icon icon-display">
+                        <use xlink:href="#icon-display"></use>
+                    </svg>
+                </div>
+                <div class='vs-container' (click)='choosePlayer(2)'>
+                    <svg class="icon icon-user">
+                        <use xlink:href="#icon-user"></use>
+                    </svg>
+                    <span>VS</span>
+                    <svg class="icon icon-user">
+                        <use xlink:href="#icon-user"></use>
+                    </svg>
+                </div>
+            </div>
         </div>
         <div class='choise-Container' *ngIf="state === 1">
-            <h4>Would you like to be X or O?</h4>
-            <button (click)='chooseXorO("X")'>X</button>
-            <button (click)='chooseXorO("O")'>O</button>
-            <button class='back' (click)='back()'>Back</button>
+            <h4>Choose X or O?</h4>
+            <svg class="icon icon-circle-left" (click)='back()'>
+                <use xlink:href="#icon-circle-left"></use>
+            </svg>
+            <div class='choise-letter-container'>
+                <div class='X-container' (click)='chooseXorO("X")'>
+                    <svg class="icon icon-cross">
+                        <use xlink:href="#icon-cross"></use>
+                    </svg>
+                </div>
+                <div class='O-container' (click)='chooseXorO("O")'>
+                    <svg class="icon icon-radio-unchecked">
+                        <use xlink:href="#icon-radio-unchecked"></use>
+                    </svg>
+                </div>
+            </div>
         </div>
         <div class='game-Container' *ngIf="state === 2">
-            <div class='player1-block'>
-                <span>player1 score: {{player1Wins}}</span>
+            <div class='panel-container'>
+                <svg class="icon icon-user">
+                    <use xlink:href="#icon-user"></use>
+                </svg>
+                <span>:{{player1Wins}}</span>
+                <svg class="icon icon-display" *ngIf='numPlayers === 1'>
+                    <use xlink:href="#icon-display"></use>
+                </svg>
+                <svg class="icon icon-user" *ngIf='numPlayers === 2'>
+                    <use xlink:href="#icon-user"></use>
+                </svg>
+                <span>:{{player2Wins}}</span>
+                <svg class="icon icon-balance-scale">
+                    <use xlink:href="#icon-balance-scale"></use>
+                </svg>
+                <span>:{{draws}}</span>
+                <svg class="icon icon-spinner11" (click)='reset()'>
+                    <use xlink:href="#icon-spinner11"></use>
+                </svg>
             </div>
-            <div class='player2-block'>
-                <span>player2 score: {{player2Wins}}</span>
-            </div>
-            <button class='reset' (click)='reset()'>Reset all</button>
-            <div class='board-Container'>
-                <ul>
-                    <li *ngFor='let num of board; let i = index' (click)='playerTurn(i)'>
-                        <span *ngIf='num === "X" || num === "O"'>{{num}}</span>
-                    </li>
-                </ul>
+            <div class='border-container'>
+                <div class='board-Container'>
+                    <ul>
+                        <li *ngFor='let num of board; let i = index' (click)='playerTurn(i)' class='cell'>
+                            <span *ngIf='num === "X" || num === "O"'>{{num}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class='overlay' *ngIf='finishedGame'>
+                    <h3 class='message-game'>{{finalMessage}}</h3>
+                </div>
             </div>
         </div>
     </div>

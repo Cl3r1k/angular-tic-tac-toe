@@ -4,11 +4,13 @@
 // ng build --prod --base-href "https://Cl3r1k.github.io/angular-tic-tac-toe/"
 // angular-cli-ghpages --repo=https://github.com/Cl3r1k/angular-tic-tac-toe.git --name=Cl3r1k --email=cl3r1k2@gmail.com --no-silent
 
+// Some desing ideas took from https://perfecttictactoe.herokuapp.com/
+
 Todos:
     New:
-            ☐ Build UI
-                ☐ Highlight wins cells
-                ☐ After game finised show a message
+        Current:
+            ☐ Add 'Fork on github' in the corner or github share link (like here https://firestarter-96e46.firebaseapp.com/)
+            ☐ Add footer with social icons (preferably fixed bottom)    
         
         ☐ Correct e2e test
         ☐ Write Unit tests
@@ -16,11 +18,13 @@ Todos:
         ☐ Deploy on gh-pages
         ☐ Deploy on codepen
 
-        ☐ And if it possible by time - add spinner when Angular component loading
-
     Done:
         ✔ Write business logic (look here https://codepen.io/freeCodeCamp/full/KzXQgy) @done(17-11-10 18:20)
             ✔ I can play a game of Tic Tac Toe with the computer. @done(17-11-10 18:20)
             ✔ My game will reset as soon as it's over so I can play again. @done(17-11-10 18:20)
             ✔ I can choose whether I want to play as X or O. @done(17-11-10 18:20)
+        ✔ Build UI @done(17-11-21 18:17)
+            ✔ After game finised show a message @done(17-11-21 18:17)
     Canceled:
+        ✘ Highlight wins cells @cancelled(17-11-21 18:17)
+        ✘ And if it possible by time - add spinner when Angular component loading @cancelled(17-11-21 18:19)

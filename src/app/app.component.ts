@@ -17,11 +17,13 @@ export class AppComponent {
     finishedGame = false;
     player1Wins: number;
     player2Wins: number;
+    draws: number;
     restartPerformed: boolean;
     msg1: string;
     msg2: string;
     activeLeft: boolean;
     activeRight: boolean;
+    finalMessage: string;
 
     constructor() {
         this.initGame();
@@ -35,6 +37,8 @@ export class AppComponent {
         this.huPlayer = 'O';
         this.player1Wins = 0;
         this.player2Wins = 0;
+        this.draws = 0;
+        this.finalMessage = 'Some text info';
 
         this.restartGame();
 
@@ -42,33 +46,8 @@ export class AppComponent {
     }
 
     choosePlayer(num: number) {
-        // this.secondPlayerTurn = !this.secondPlayerTurn;
-        // this.start = false;    // TODO: Delete after test
         this.numPlayers = num;
         this.state = 1;
-
-        // const arr = [{ score: 10, steps: 5 }, { score: -10, steps: 6 }, { score: -10, steps: 7 }];
-
-        // let bestMove: number;
-        // let bestScore = 10000;    // Здесь добавить еще одну переменную bestSteps и в цикле тоже ее проверять. (<= и >=)
-        // let bestSteps = 10000;
-
-        // for (let i = 0; i < arr.length; i++) {
-        //     if (arr[i].score <= bestScore) {
-        //         if (arr[i].steps < bestSteps || arr[i].score < bestScore) {
-        //             bestSteps = arr[i].steps;
-        //             bestScore = arr[i].score;
-        //             bestMove = i;
-        //         }
-        //         //  else {
-        //         //     if (arr[i].score < bestScore) {
-        //         //         bestSteps = arr[i].steps;
-        //         //         bestScore = arr[i].score;
-        //         //         bestMove = i;
-        //         //     }
-        //         // }
-        //     }
-        // }
     }
 
     chooseXorO(letter: string) {
@@ -133,8 +112,8 @@ export class AppComponent {
           ---------
             | O | O
         */
-        this.board = ['O', '1', 'X', 'X', '4', 'X', '6', 'O', 'O'];
-        this.start = false;
+        // this.board = ['O', '1', 'X', 'X', '4', 'X', '6', 'O', 'O'];
+        // this.start = false;
 
         /* Initial state of the board
             |   | O
@@ -143,7 +122,7 @@ export class AppComponent {
           ---------
             | O |
         */
-        this.board = ['0', '1', 'O', '3', 'X', 'X', '6', 'O', '8'];
+        // this.board = ['0', '1', 'O', '3', 'X', 'X', '6', 'O', '8'];
 
         /* Initial state of the board
             |   | X
@@ -152,7 +131,7 @@ export class AppComponent {
           ---------
             | O | O
         */
-        this.board = ['0', '1', 'X', '3', '4', 'X', '6', 'O', 'O'];
+        // this.board = ['0', '1', 'X', '3', '4', 'X', '6', 'O', 'O'];
 
         /* Initial state of the board
           0 |   | X
@@ -178,8 +157,9 @@ export class AppComponent {
         let result = Object();
 
         if (this.start) {
-            // random pass
-            result.index = 5; // TODO: Randomize the value
+            // Perform first random pass
+            const rnd = Math.round(Math.random() * (9 - 0) + 0);
+            result.index = rnd;
         } else {
             if (this.playerChoiseXorO === 'X') {
                 result = this.minimax(this.board, this.huPlayer, 0);
@@ -226,7 +206,8 @@ export class AppComponent {
                         if (this.winning(this.board, tmpChoise)) {
                             this.finishedGame = true;
                             this.player1Wins++;
-                            alert('First player won!!!');
+                            // alert('First player won!!!');
+                            this.finalMessage = 'First player won!!!';
                             setTimeout(() => { this.restartGame(); }, 3000);
                             return;
                         }
@@ -235,12 +216,15 @@ export class AppComponent {
                         this.board[num] = this.aiPlayer;
                         if (this.winning(this.board, this.aiPlayer)) {
                             this.finishedGame = true;
-                            this.player1Wins++;
 
                             if (this.playerChoiseXorO !== this.aiPlayer) {
-                                alert('AI won!');
+                                // alert('AI won!');
+                                this.finalMessage = 'AI won!';
+                                this.player2Wins++;
                             } else {
-                                alert('You won the AI!!!');
+                                // alert('You won the AI!!!');
+                                this.finalMessage = 'You won the AI!!!';
+                                this.player1Wins++;
                             }
 
                             setTimeout(() => { this.restartGame(); }, 3000);
@@ -261,7 +245,8 @@ export class AppComponent {
                         if (this.winning(this.board, tmpChoise)) {
                             this.finishedGame = true;
                             this.player2Wins++;
-                            alert('Second player won!!!');
+                            // alert('Second player won!!!');
+                            this.finalMessage = 'Second player won!!!';
                             setTimeout(() => { this.restartGame(); }, 3000);
                             return;
                         }
@@ -273,9 +258,11 @@ export class AppComponent {
                             this.player2Wins++;
 
                             if (this.playerChoiseXorO !== this.huPlayer) {
-                                alert('AI won!');
+                                // alert('AI won!');
+                                this.finalMessage = 'AI won!';
                             } else {
-                                alert('You won the AI!!!');
+                                // alert('You won the AI!!!');
+                                this.finalMessage = 'You won the AI!!!!';
                             }
 
                             setTimeout(() => { this.restartGame(); }, 3000);
@@ -288,7 +275,9 @@ export class AppComponent {
                 const tmpBoard = this.emptyIndices(this.board);
                 if (tmpBoard.length === 0) {
                     this.finishedGame = true;
-                    alert('it was a draw...');
+                    this.draws++;
+                    // alert('it was a draw...');
+                    this.finalMessage = 'it was a draw...';
                     setTimeout(() => { this.restartGame(); }, 3000);
                     return;
                 }
