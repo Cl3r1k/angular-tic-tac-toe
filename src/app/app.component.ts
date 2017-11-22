@@ -206,7 +206,6 @@ export class AppComponent {
                         if (this.winning(this.board, tmpChoise)) {
                             this.finishedGame = true;
                             this.player1Wins++;
-                            // alert('First player won!!!');
                             this.finalMessage = 'First player won!!!';
                             setTimeout(() => { this.restartGame(); }, 3000);
                             return;
@@ -218,11 +217,9 @@ export class AppComponent {
                             this.finishedGame = true;
 
                             if (this.playerChoiseXorO !== this.aiPlayer) {
-                                // alert('AI won!');
                                 this.finalMessage = 'AI won!';
                                 this.player2Wins++;
                             } else {
-                                // alert('You won the AI!!!');
                                 this.finalMessage = 'You won the AI!!!';
                                 this.player1Wins++;
                             }
@@ -245,7 +242,6 @@ export class AppComponent {
                         if (this.winning(this.board, tmpChoise)) {
                             this.finishedGame = true;
                             this.player2Wins++;
-                            // alert('Second player won!!!');
                             this.finalMessage = 'Second player won!!!';
                             setTimeout(() => { this.restartGame(); }, 3000);
                             return;
@@ -258,10 +254,8 @@ export class AppComponent {
                             this.player2Wins++;
 
                             if (this.playerChoiseXorO !== this.huPlayer) {
-                                // alert('AI won!');
                                 this.finalMessage = 'AI won!';
                             } else {
-                                // alert('You won the AI!!!');
                                 this.finalMessage = 'You won the AI!!!!';
                             }
 
@@ -276,7 +270,6 @@ export class AppComponent {
                 if (tmpBoard.length === 0) {
                     this.finishedGame = true;
                     this.draws++;
-                    // alert('it was a draw...');
                     this.finalMessage = 'it was a draw...';
                     setTimeout(() => { this.restartGame(); }, 3000);
                     return;
@@ -372,7 +365,7 @@ export class AppComponent {
             moves.push(move);
         }
 
-        let bestMove: number;    // Здесь добавить еще одну переменную bestSteps и в цикле тоже ее проверять. (<= и >=)
+        let bestMove: number;
         let bestSteps = 10000;
 
         if (player === this.aiPlayer) {

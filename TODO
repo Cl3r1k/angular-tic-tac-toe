@@ -9,12 +9,10 @@
 Todos:
     New:
         Current:
-            ☐ Add 'Fork on github' in the corner or github share link (like here https://firestarter-96e46.firebaseapp.com/)
-            ☐ Add footer with social icons (preferably fixed bottom)    
+            
         
         ☐ Correct e2e test
         ☐ Write Unit tests
-        ☐ Change direction, if was draw
         ☐ Deploy on gh-pages
         ☐ Deploy on codepen
 
@@ -25,6 +23,10 @@ Todos:
             ✔ I can choose whether I want to play as X or O. @done(17-11-10 18:20)
         ✔ Build UI @done(17-11-21 18:17)
             ✔ After game finised show a message @done(17-11-21 18:17)
+        ✔ Add 'Fork on github' in the corner or github share link (like here https://firestarter-96e46.firebaseapp.com/) @done(17-11-21 19:14)
+        ✔ Add footer (preferably fixed bottom) @done(17-11-22 17:42)
+
     Canceled:
         ✘ Highlight wins cells @cancelled(17-11-21 18:17)
         ✘ And if it possible by time - add spinner when Angular component loading @cancelled(17-11-21 18:19)
+        ✘ Change direction, if was draw @cancelled(17-11-21 19:16)

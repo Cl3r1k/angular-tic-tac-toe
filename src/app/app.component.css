@@ -10,12 +10,12 @@ button:hover {
 }
 
 .wrapper {
-    padding-top: 100px;
     text-align: center;
     color: white;
     display: flex;
     justify-content: center;
     font-family: 'Indie Flower', cursive;
+    position: relative;
 }
 
 .main-Container {
@@ -26,7 +26,7 @@ button:hover {
     border-radius: 4px;
     margin: 20px auto;
     width: 300px;
-    height: 350px;
+    height: 360px;
     font-size: 14px;
     font-weight: 500;
     padding: 40px;
@@ -63,32 +63,30 @@ li:hover {
     position: absolute;
     width: 350px;
     height: 50px;
-    top: 71px;
+    top: -29px;
     display: flex;
     justify-content: space-between;
     z-index: -1;
-    /* -webkit-transition: .5s ease-in-out;
-    -moz-transition: .5s ease-in-out;
-    -o-transition: .5s ease-in-out;
-    transition: .5s ease-in-out; */
 }
 
 .message-Box {
+    opacity: 0;
     width: 150px;
     height: 34px;
     padding-top: 15px;
     position: relative;
-    background-color: white;
     border-radius: 2px 2px 0px 0px;
-    -webkit-transition: background-color 0.3s linear;
-    transition: background-color 0.3s linear;
+    -webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
 }
 
 .active-left {
+    opacity: 1;
     background-color: rgb(65, 180, 180);
 }
 
 .active-right {
+    opacity: 1;
     background-color: rgb(233, 127, 95);
 }
 
@@ -263,7 +261,7 @@ h4 {
 }
 
 .cell {
-    background-color: #a5a5a5;
+    background-color: #b6b5b5;
 }
 
 .overlay {
