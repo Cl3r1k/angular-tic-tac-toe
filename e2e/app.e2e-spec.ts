@@ -1,14 +1,14 @@
 import { AppPage } from './app.po';
 
 describe('angular-tic-tac-toe App', () => {
-  let page: AppPage;
+    let page: AppPage;
 
-  beforeEach(() => {
-    page = new AppPage();
-  });
+    beforeEach(() => {
+        page = new AppPage();
+    });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
-  });
+    it('should display `Tic Tac Toe` message', () => {
+        page.navigateTo();
+        expect(page.getParagraphText()).toEqual('Tic Tac Toe');
+    });
 });

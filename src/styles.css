@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Rock+Salt');
 html,
 body,
 p {
@@ -62,10 +61,6 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.flex-header h1 {
-    font-family: 'Rock Salt', cursive;
 }
 
 .flex-footer {

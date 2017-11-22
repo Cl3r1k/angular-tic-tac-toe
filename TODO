@@ -9,12 +9,10 @@
 Todos:
     New:
         Current:
-            
-        
-        ☐ Correct e2e test
-        ☐ Write Unit tests
-        ☐ Deploy on gh-pages
-        ☐ Deploy on codepen
+            ✔ Correct e2e test @done(17-11-22 17:57)
+            ✔ Write Unit tests @done(17-11-22 18:50)
+            ☐ Deploy on gh-pages
+            ☐ Deploy on codepen
 
     Done:
         ✔ Write business logic (look here https://codepen.io/freeCodeCamp/full/KzXQgy) @done(17-11-10 18:20)

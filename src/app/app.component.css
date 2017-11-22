@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 @import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 @import url('https://fonts.googleapis.com/css?family=Orbitron:400');
+@import url('https://fonts.googleapis.com/css?family=Rock+Salt');
 button:focus {
     outline: none;
 }
@@ -281,4 +282,10 @@ h4 {
 .message-game {
     font-size: 44px;
     color: white;
+}
+
+.header h1 {
+    font-family: 'Rock Salt', cursive;
+    color: white;
+    margin-top: -40px;
 }
