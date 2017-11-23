@@ -8,11 +8,7 @@
 
 Todos:
     New:
-        Current:
-            ✔ Correct e2e test @done(17-11-22 17:57)
-            ✔ Write Unit tests @done(17-11-22 18:50)
-            ☐ Deploy on gh-pages
-            ☐ Deploy on codepen
+        Current:            
 
     Done:
         ✔ Write business logic (look here https://codepen.io/freeCodeCamp/full/KzXQgy) @done(17-11-10 18:20)
@@ -23,6 +19,10 @@ Todos:
             ✔ After game finised show a message @done(17-11-21 18:17)
         ✔ Add 'Fork on github' in the corner or github share link (like here https://firestarter-96e46.firebaseapp.com/) @done(17-11-21 19:14)
         ✔ Add footer (preferably fixed bottom) @done(17-11-22 17:42)
+        ✔ Correct e2e test @done(17-11-22 17:57)
+        ✔ Write Unit tests @done(17-11-22 18:50)
+        ✔ Deploy on gh-pages @done(17-11-23 17:29)
+        ✔ Deploy on codepen @done(17-11-23 18:24)
 
     Canceled:
         ✘ Highlight wins cells @cancelled(17-11-21 18:17)
