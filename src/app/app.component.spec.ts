@@ -278,4 +278,39 @@ describe('AppComponent', () => {
             expect(result.index).toEqual('4');
         }));
     });
+
+    describe('#ca203_TicTacToeMinimaxAlgorithm', () => {
+        it(`should return '000020000' with passed data '1 8 7'`, async(() => {
+            // Arrange
+            const testCase = '1 8 7';
+
+            // Act
+            const result = component.ca203_TicTacToeMinimaxAlgorithm(testCase);
+
+            // Assert
+            expect(result).toEqual('000020000');
+        }));
+
+        it(`should return '101000100' with passed data '7 1 5 3 4 8'`, async(() => {
+            // Arrange
+            const testCase = '7 1 5 3 4 8';
+
+            // Act
+            const result = component.ca203_TicTacToeMinimaxAlgorithm(testCase);
+
+            // Assert
+            expect(result).toEqual('101000100');
+        }));
+
+        it(`should return '000021202' with passed data '7 2 1 3'`, async(() => {
+            // Arrange
+            const testCase = '7 2 1 3';
+
+            // Act
+            const result = component.ca203_TicTacToeMinimaxAlgorithm(testCase);
+
+            // Assert
+            expect(result).toEqual('000021202');
+        }));
+    });
 });

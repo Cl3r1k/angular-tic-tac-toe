@@ -43,6 +43,33 @@ export class AppComponent {
         this.restartGame();
 
         this.restartPerformed = false;
+
+        const testCase = `5 8 1 2
+        3 2 0 6 1
+        1 8 5
+        5 1 0 6 7 3
+        3 5 4 6
+        1 4 5 3 0
+        5 1 8 0
+        8 4 3 0
+        4 7 5 0 8
+        6 5 0 8 1
+        4 6 2 5 0
+        0 1 2 6 4 3
+        6 8 1 2 0
+        7 6 4 8 3 1
+        1 4 6
+        2 6 1`;
+
+        let testArr = testCase.split('\n');
+
+        let result = '';
+
+        testArr.forEach(el => {
+            result += this.ca203_TicTacToeMinimaxAlgorithm(el.trim()) + ' ';
+        });
+
+        console.log(result);
     }
 
     choosePlayer(num: number) {
@@ -151,6 +178,68 @@ export class AppComponent {
         */
         // this.board = ['X', 'X', 'O', '3', 'O', '5', '6', 'O', 'X'];
         // this.board = ['X', 'O', '2', '3', 'O', '5', '6', '7', 'X'];
+    }
+
+    ca203_TicTacToeMinimaxAlgorithm(steps: string): string {
+
+        this.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
+
+        const arrSteps = steps.split(' ');
+
+        let xTurn = true;
+
+        for (const item of arrSteps) {
+            if (xTurn) {
+                this.board[item] = this.aiPlayer;
+            } else {
+                this.board[item] = this.huPlayer;
+            }
+
+            xTurn = !xTurn;
+        }
+
+        const currentPlayer = arrSteps.length % 2 === 0 ? 'X' : 'O';
+        const opponent = arrSteps.length % 2 === 1 ? 'X' : 'O';
+
+        let res = '';
+        for (let i = 0; i < this.board.length; i++) {
+            if (this.board[i] === this.huPlayer || this.board[i] === this.aiPlayer) {
+                res += '0';
+            } else {
+                const tmpVal = i;
+                this.board[i] = currentPlayer;
+
+                let result = Object();
+
+                result = this.minimax(this.board, opponent, 0);
+
+                if (currentPlayer === this.aiPlayer) {
+                    if (result.score === -10) {
+                        res += 0;
+                    } else if (result.score === 0) {
+                        res += 1;
+                    } else {
+                        res += 2;
+                    }
+                } else {
+                    if (result.score === 10) {
+                        res += 0;
+                    } else if (result.score === 0) {
+                        res += 1;
+                    } else {
+                        res += 2;
+                    }
+                }
+
+                this.board[i] = tmpVal.toString();
+            }
+        }
+
+        console.log('res: ', res);
+
+        this.board = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
+
+        return res;
     }
 
     aiTurn() {

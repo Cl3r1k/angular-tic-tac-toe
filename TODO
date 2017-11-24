@@ -24,6 +24,10 @@ Todos:
         ✔ Deploy on gh-pages @done(17-11-23 17:29)
         ✔ Deploy on codepen @done(17-11-23 18:24)
 
+        ✔ In branch for CodeAbbey Problem #203: @done(17-11-24 18:08)
+            ✔ Solve the task @done(17-11-24 18:08)
+            ✔ Update Unit tests @done(17-11-24 18:08)
+
     Canceled:
         ✘ Highlight wins cells @cancelled(17-11-21 18:17)
         ✘ And if it possible by time - add spinner when Angular component loading @cancelled(17-11-21 18:19)
